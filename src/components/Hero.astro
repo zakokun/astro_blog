@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import SocialIcons from './SocialIcons.astro';
 import portraitImage from '../assets/homepage-photo.jpeg';
 const { name, tagline, twitter, linkedin, scholar, email } = Astro.props;
@@ -8,7 +7,15 @@ const { name, tagline, twitter, linkedin, scholar, email } = Astro.props;
 <section class="hero">
   <div class="hero-content">
     <div class="portrait-container">
-      <Image src={portraitImage} alt={name} class="portrait" />
+      <img
+        src={portraitImage.src}
+        width={portraitImage.width}
+        height={portraitImage.height}
+        alt={name}
+        class="portrait"
+        loading="eager"
+        decoding="async"
+      />
     </div>
     <div class="hero-text">
       <h1>{name}</h1>
