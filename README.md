@@ -3,7 +3,7 @@
 Personal blog built with [Astro](https://astro.build), based on the
 [Astro Scholar](https://github.com/whydevils/astro-scholar) theme.
 
-Production domain: <https://blog.zakokoun.com>
+Production domain: <https://blog.zakokun.com>
 
 ## Local Development
 
@@ -54,7 +54,7 @@ src/pages/blog/my-post-slug/index.md
 becomes:
 
 ```text
-https://blog.zakokoun.com/blog/my-post-slug/
+https://blog.zakokun.com/blog/my-post-slug/
 ```
 
 ## Site Settings
@@ -74,7 +74,7 @@ Recommended settings:
 - Node.js version: `22` or newer
 
 After pushing to GitHub, connect the repository in Cloudflare Pages and add the
-custom domain `blog.zakokoun.com`.
+custom domain `blog.zakokun.com`.
 
 ## Useful Commands
 
