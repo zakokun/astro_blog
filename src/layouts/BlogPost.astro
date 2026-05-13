@@ -4,7 +4,7 @@ import '../styles/blog.css';
 
 const { frontmatter } = Astro.props;
 
-const dateStr = new Date(frontmatter.date).toLocaleDateString('en-GB', {
+const dateStr = new Date(frontmatter.date).toLocaleDateString('zh-CN', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

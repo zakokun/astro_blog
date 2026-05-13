@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">桌面工作流</title>
+  <desc id="desc">笔记本电脑、咖啡杯和便签组成的桌面示例图片。</desc>
+  <rect width="1200" height="800" fill="#f4f1eb"/>
+  <rect x="150" y="210" width="650" height="390" rx="28" fill="#374151"/>
+  <rect x="190" y="250" width="570" height="300" rx="12" fill="#f8fafc"/>
+  <rect x="115" y="610" width="720" height="42" rx="21" fill="#9ca3af"/>
+  <rect x="855" y="285" width="210" height="210" rx="105" fill="#f59e0b"/>
+  <circle cx="960" cy="390" r="72" fill="#7c2d12"/>
+  <rect x="870" y="550" width="180" height="130" rx="12" fill="#fde68a"/>
+  <path d="M910 590h100M910 625h76" stroke="#92400e" stroke-width="12" stroke-linecap="round"/>
+  <path d="M255 325h250M255 375h360M255 425h220" stroke="#0f766e" stroke-width="18" stroke-linecap="round"/>
+  <text x="70" y="720" fill="#374151" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Desk Notes</text>
+</svg>

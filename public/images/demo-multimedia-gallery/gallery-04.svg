@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">海岸线</title>
+  <desc id="desc">海面、沙滩、浪花和小船组成的海岸示例图片。</desc>
+  <rect width="1200" height="800" fill="#bae6fd"/>
+  <path d="M0 400c180-70 330-70 520 0s345 70 680-22v422H0z" fill="#0ea5e9"/>
+  <path d="M0 610c160-45 320-55 500-10s390 36 700-45v245H0z" fill="#38bdf8"/>
+  <path d="M0 675c185 42 360 52 540 30s420-42 660 8v87H0z" fill="#f5d08a"/>
+  <path d="M730 350h210l-45 65H775z" fill="#7c2d12"/>
+  <path d="M825 190v160M825 195l120 110H825z" stroke="#334155" stroke-width="12" fill="#fff7ed" stroke-linejoin="round"/>
+  <text x="70" y="720" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Coastline</text>
+</svg>

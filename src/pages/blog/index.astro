@@ -10,19 +10,26 @@ interface Post {
     url: string;
 }
 
-const postFiles = import.meta.glob<{ frontmatter: Post }>('./*.md', { eager: true });
+const postFiles = import.meta.glob<{ frontmatter: Post }>('./**/*.md', { eager: true });
 
 const sorted: Post[] = Object.entries(postFiles)
-    .map(([path, mod]) => ({
-        ...mod.frontmatter,
-        url: `${import.meta.env.BASE_URL}blog/` + path.replace('./', '').replace('.md', '') + '/',
-    }))
+    .map(([path, mod]) => {
+        const slug = path
+            .replace('./', '')
+            .replace(/\/index\.md$/, '')
+            .replace(/\.md$/, '');
+
+        return {
+            ...mod.frontmatter,
+            url: `${import.meta.env.BASE_URL}blog/${slug}/`,
+        };
+    })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const allTags = [...new Set(sorted.flatMap(p => p.tags ?? []))].sort();
 
 function formatDate(dateStr: string) {
-    return new Date(dateStr).toLocaleDateString('en-GB', {
+    return new Date(dateStr).toLocaleDateString('zh-CN', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
@@ -35,8 +42,8 @@ function formatDate(dateStr: string) {
         <h1>Blog</h1>
 
         <p class="intro-text">
-            Occasional writing on field work and the experience of studying things
-            that most institutions would prefer you not study. Non peer-reviewed opinions only.
+            Personal notes, build logs, technical writeups, and things worth keeping
+            somewhere more durable than a chat window.
         </p>
 
         <div class="blog-tag-filters">

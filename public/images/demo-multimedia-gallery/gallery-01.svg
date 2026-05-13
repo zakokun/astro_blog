@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">晨光里的山脊</title>
+  <desc id="desc">渐变天空、山脊和前景草坡组成的示例图片。</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6ea8fe"/>
+      <stop offset="55%" stop-color="#f8c77e"/>
+      <stop offset="100%" stop-color="#f6efe4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="930" cy="190" r="78" fill="#fff1a8"/>
+  <path d="M0 520 190 345 365 480 540 285 760 500 925 360 1200 550v250H0z" fill="#29465f"/>
+  <path d="M0 600 260 460 500 620 700 430 940 615 1200 500v300H0z" fill="#577f66"/>
+  <path d="M0 680c150-55 305-70 470-34s319 28 465-25c99-36 188-45 265-27v206H0z" fill="#2f6f4e"/>
+  <text x="70" y="710" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Mountain Light</text>
+</svg>

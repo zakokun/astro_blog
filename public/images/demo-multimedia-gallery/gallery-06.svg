@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">抽象色块</title>
+  <desc id="desc">由几何图形、线条和色块组成的抽象示例图片。</desc>
+  <rect width="1200" height="800" fill="#fbfaf7"/>
+  <circle cx="275" cy="260" r="150" fill="#ef4444" opacity="0.9"/>
+  <rect x="545" y="145" width="310" height="310" rx="38" fill="#14b8a6" opacity="0.92"/>
+  <path d="M760 610 940 300l180 310z" fill="#f59e0b" opacity="0.95"/>
+  <path d="M130 610c145-150 300-185 465-105s315 70 455-40" fill="none" stroke="#111827" stroke-width="22" stroke-linecap="round"/>
+  <g fill="none" stroke="#334155" stroke-width="10" opacity="0.42">
+    <path d="M100 120h220M100 160h140"/>
+    <path d="M450 640h190M450 680h120"/>
+  </g>
+  <text x="70" y="735" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700">Abstract Blocks</text>
+</svg>

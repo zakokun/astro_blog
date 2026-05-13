@@ -1,151 +1,90 @@
-# Astro Scholar
+# 雑魚君のブログ
 
-**[Live demo](https://whydevils.github.io/astro-scholar)**
+Personal blog built with [Astro](https://astro.build), based on the
+[Astro Scholar](https://github.com/whydevils/astro-scholar) theme.
 
+Production domain: <https://blog.zakokoun.com>
 
-Built with [Astro](https://astro.build). Simple, fast, easy to configure and extend. Pages for introduction, publications, presentations, and a blog.
-
-## 🚀 Getting started
-
-**The fastest path** is to fork this repo, edit the files listed below, and push to GitHub. The site deploys automatically to GitHub Pages — no local setup needed.
-
-If you want to preview or build locally, you'll need [Node.js 18+](https://nodejs.org/en/download):
+## Local Development
 
 ```bash
 npm install
-npm run dev        # http://localhost:4321
+npm run dev
 ```
 
-## ✏️ What to change
+Astro will print a local preview URL, usually <http://localhost:4321>.
 
-### 1. Your details — `src/constants.ts`
+## Writing Posts
 
-Name, tagline, and social links. Set any field to `""` to hide it.
+Each blog post lives in its own folder under `src/pages/blog/`.
 
-### 2. Portrait — `src/assets/portrait.png`
-
-Replace with your own photo. Ideally square, 400×400px or larger.
-
-### 3. Pages — `src/pages/`
-
-Each `.astro` file is a page. Edit them directly:
-
-- `index.astro` — homepage
-- `about.astro` — bio, positions, education, awards
-- `publications.astro` — the filter UI (data is in `src/data/publications.json`)
-- `presentations.astro` — talks and slides
-
-### 4. Publications — `src/data/publications.json`
-
-```json
-{
-  "id": 1,
-  "title": "Paper Title",
-  "authors": "You, Coauthor A",
-  "journal": "Journal or Conference Name",
-  "year": 2025,
-  "link": "https://...",
-  "authorship": "first",
-  "abstract": "...",
-  "doi": "10.xxxx/xxxxx",
-  "publicationType": "Journal"
-}
+```text
+src/pages/blog/
+├── index.astro
+└── my-post-slug/
+    ├── index.md
+    ├── cover.png
+    └── other-file.pdf
 ```
 
-`authorship`: `"first"`, `"last"`, or `"other"`. Drives the authorship filter.
-`publicationType`: any string — `"Journal"`, `"Conference"`, `"Preprint"`, `"Book Chapter"`, etc. Each unique value becomes a filter button.
-
-See `src/data/README.md` for full field details.
-
-### 5. Blog posts — `src/pages/blog/`
-
-Add a `.md` file per post:
+Use this frontmatter in each `index.md`:
 
 ```markdown
 ---
-layout: '../../layouts/BlogPost.astro'
-title: 'Post Title'
-date: '2025-06-01'
-description: 'One sentence shown on the index.'
-tags: ['methodology', 'field-notes']
+layout: '../../../layouts/BlogPost.astro'
+title: 'Post title'
+date: '2026-05-13'
+description: 'One sentence shown on the blog index.'
+tags: ['notes']
 ---
-
-Post content here.
 ```
 
-Tags become clickable filters on the blog index. Keep them lowercase and hyphenated, and reuse them across posts so the filter is useful.
+Assets in the same post folder can be referenced from Markdown with relative paths:
 
-Images go in `public/images/blog/`. In markdown files you cannot use `BASE_URL`, so the path must include your base manually:
-- Root deployment (`username.github.io`): `/images/blog/filename.png`
-- Sub-path deployment (`username.github.io/repo-name`): `/repo-name/images/blog/filename.png`
-
-### 6. Adding or removing pages
-
-Any `.astro` file in `src/pages/` becomes a route. To add a page, copy an existing one and add a link in `src/components/Navigation.astro`. To remove one, delete the file and remove its nav link.
-
-### 7. Colours and fonts
-
-Accent colour and font are set in `src/styles/global.css`. The font is loaded from Google Fonts — swap the import and the `font-family` declaration to change it.
-
-## 🌐 Deployment
-
-### GitHub Pages
-
-Push to `main` and GitHub Actions deploys automatically (workflow at `.github/workflows/deploy.yaml`).
-
-**One-time setup:** in your repo go to **Settings → Pages → Build and deployment** and set the source to **GitHub Actions** (not "Deploy from a branch"). Without this, pushes will not trigger a deployment.
-
-Edit `astro.config.mjs` to match your deployment URL:
-
-**Root domain** (repo named `your-github-username.github.io` → `https://your-github-username.github.io`):
-
-```javascript
-export default defineConfig({
-  site: 'https://your-github-username.github.io',
-});
+```markdown
+![Cover](./cover.png)
 ```
 
-**Sub-path** (any other repo name → `https://your-github-username.github.io/repo-name`):
+The route is based on the folder name. For example:
 
-```javascript
-export default defineConfig({
-  site: 'https://your-github-username.github.io',
-  base: '/repo-name/',
-});
+```text
+src/pages/blog/my-post-slug/index.md
 ```
 
-### Other hosts
+becomes:
 
-[Netlify](https://netlify.com), [Vercel](https://vercel.com), and [Cloudflare Pages](https://pages.cloudflare.com) all support Astro with minimal configuration. Or build with `npm run build` and upload `dist/` anywhere.
-
-## 📁 Project structure
-
-```
-src/
-├── constants.ts              # Name, tagline, social links
-├── assets/portrait.png       # Profile picture
-├── data/publications.json    # Publications
-├── pages/
-│   ├── index.astro
-│   ├── about.astro
-│   ├── publications.astro
-│   ├── presentations.astro
-│   └── blog/
-│       ├── index.astro
-│       └── *.md
-├── layouts/
-│   ├── Layout.astro
-│   └── BlogPost.astro
-├── components/
-└── styles/
-public/
-├── presentations/            # HTML slide decks
-├── posters/
-└── images/blog/              # Blog post images
+```text
+https://blog.zakokoun.com/blog/my-post-slug/
 ```
 
-## 📄 License
+## Site Settings
 
-MIT — see [LICENSE](LICENSE).
+Edit `src/constants.ts` for the site name, tagline, social links, SEO description,
+and deployed URL.
 
-Created by [whydevils](https://github.com/whydevils).
+Edit `astro.config.mjs` if the production domain changes.
+
+## Cloudflare Pages
+
+Recommended settings:
+
+- Framework preset: `Astro`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Node.js version: `22` or newer
+
+After pushing to GitHub, connect the repository in Cloudflare Pages and add the
+custom domain `blog.zakokoun.com`.
+
+## Useful Commands
+
+```bash
+npm run dev      # local dev server
+npm run build    # production build
+npm run preview  # preview the built site
+```
+
+## Theme Credit
+
+Original theme: [whydevils/astro-scholar](https://github.com/whydevils/astro-scholar)
+under the MIT license.

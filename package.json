@@ -1,8 +1,8 @@
 {
-  "name": "astro-scholar",
+  "name": "zakokoun-blog",
   "type": "module",
   "version": "1.0.0",
-  "description": "A modern, elegant academic website template built with Astro for researchers, academics, and scholars",
+  "description": "雑魚君のブログ built with Astro",
   "keywords": [
     "astro",
     "template",
@@ -16,11 +16,7 @@
     "resume"
   ],
   "license": "MIT",
-  "author": "whydevils",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/whydevils/astro-scholar"
-  },
+  "author": "Zakokoun",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
