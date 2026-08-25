@@ -1,30 +1,150 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialIcons from '../components/SocialIcons.astro';
+import portraitImage from '../assets/homepage-photo.jpeg';
 import { SITE_DATA } from '../constants';
 
 import '../styles/about.css';
+
+const base = import.meta.env.BASE_URL;
+const topics = [
+    {
+        index: '01',
+        title: '技术与 AI',
+        description: '不只记录代码怎么写，也关心一个产品如何真正上线：架构、安全、成本，以及人在 AI 时代仍然需要做出的判断。',
+    },
+    {
+        index: '02',
+        title: '语言与概念',
+        description: '辨认那些看起来熟悉、实际上边界模糊的词。把概念说清楚，是理解现实的第一步。',
+    },
+    {
+        index: '03',
+        title: '生活与观察',
+        description: '从日常经验出发，追问标准、制度和公共生活。尽量写具体的事，也保留修正观点的余地。',
+    },
+];
+
+const selectedPosts = [
+    {
+        title: 'AI 会写代码以后，你更需要架构师思维',
+        description: '关于代码生成之后，真正上线一个服务还需要处理什么。',
+        href: `${base}blog/ai-architect-thinking/`,
+    },
+    {
+        title: '当语言失去描述现实的能力',
+        description: '讨论概念如何因为含义膨胀，逐渐失去准确描述现实的能力。',
+        href: `${base}blog/when-language-loses-the-ability-to-describe-reality/`,
+    },
+    {
+        title: '逻辑，和中国逻辑',
+        description: '从医疗、食品与教育出发，谈模糊而不可验证的标准。',
+        href: `${base}blog/logic-and-chinese-logic/`,
+    },
+];
 ---
 
-<Layout pageTitle="About">
-    <div class="page-container">
-        <h1>About</h1>
-
-        <div class="about-content">
-            <section>
-                <h2>{SITE_DATA.name}</h2>
-                <p class="intro-text">
-                    This is a personal blog for notes, projects, technical writing, and the occasional
-                    unfinished thought that became useful enough to publish.
+<Layout
+    pageTitle="关于"
+    description={`关于${SITE_DATA.name}：写技术、语言与日常观察，也记录那些值得认真想一想的问题。`}
+>
+    <article class="about-page">
+        <header class="about-hero">
+            <div class="about-hero-copy">
+                <p class="about-kicker">ABOUT / 关于</p>
+                <h1>你好，我是<br /><span>雑魚君。</span></h1>
+                <p class="about-lead">
+                    我写代码，也写那些不太容易被代码解决的问题。这里收集我的技术实践、阅读思考，以及对日常生活的观察。
                 </p>
-            </section>
+                <div class="about-topics" aria-label="博客主题">
+                    <span>技术</span>
+                    <span>语言</span>
+                    <span>社会观察</span>
+                </div>
+            </div>
 
-            <section>
-                <h2>Contact</h2>
-                <p>
-                    Update this page in <code>src/pages/about.astro</code> when you are ready to add a
-                    bio, links, or contact details.
-                </p>
-            </section>
-        </div>
-    </div>
+            <figure class="about-photo-wrap">
+                <div class="about-photo-frame">
+                    <img
+                        src={portraitImage.src}
+                        width={portraitImage.width}
+                        height={portraitImage.height}
+                        alt="雑魚君"
+                        class="about-photo"
+                        loading="eager"
+                        decoding="async"
+                    />
+                </div>
+                <figcaption>Based in China · Writing on the web</figcaption>
+            </figure>
+        </header>
+
+        <section class="about-statement" aria-labelledby="why-i-write">
+            <p class="section-label">写在前面</p>
+            <div class="statement-content">
+                <h2 id="why-i-write">把模糊的事情，<br />尽量说清楚。</h2>
+                <div>
+                    <p>
+                        互联网每天都在生产新的结论，AI 又让生产答案变得前所未有地容易。但一个答案听起来合理，不等于它经得起追问。
+                    </p>
+                    <p>
+                        我想保留一块稍微慢一点的地方：从具体经验出发，检查概念、证据和逻辑；不急着摆出正确姿态，也不拿含糊的词替代思考。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" aria-labelledby="what-i-write">
+            <div class="section-heading">
+                <p class="section-label">关注什么</p>
+                <h2 id="what-i-write">这个博客主要写三类东西</h2>
+            </div>
+            <div class="topic-grid">
+                {topics.map(topic => (
+                    <article class="topic-card">
+                        <span class="topic-index">{topic.index}</span>
+                        <h3>{topic.title}</h3>
+                        <p>{topic.description}</p>
+                    </article>
+                ))}
+            </div>
+        </section>
+
+        <section class="about-section" aria-labelledby="start-here">
+            <div class="section-heading section-heading-row">
+                <div>
+                    <p class="section-label">从这里开始</p>
+                    <h2 id="start-here">几篇有代表性的文章</h2>
+                </div>
+                <a class="all-posts-link" href={`${base}blog/`}>查看全部文章 <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="selected-posts">
+                {selectedPosts.map((post, index) => (
+                    <a class="selected-post" href={post.href}>
+                        <span class="selected-post-number">0{index + 1}</span>
+                        <span class="selected-post-copy">
+                            <strong>{post.title}</strong>
+                            <span>{post.description}</span>
+                        </span>
+                        <span class="selected-post-arrow" aria-hidden="true">→</span>
+                    </a>
+                ))}
+            </div>
+        </section>
+
+        <section class="contact-panel" aria-labelledby="say-hello">
+            <div>
+                <p class="section-label">保持联系</p>
+                <h2 id="say-hello">有想法，就来聊聊。</h2>
+                <p>如果你想讨论文章、交换观点，或者只是打个招呼，欢迎给我写信。</p>
+            </div>
+            <div class="contact-actions">
+                <a class="email-link" href={`mailto:${SITE_DATA.email}`}>
+                    <span>{SITE_DATA.email}</span>
+                    <span aria-hidden="true">↗</span>
+                </a>
+                <SocialIcons size={24} gap="1.25rem" class="about-socials" />
+            </div>
+        </section>
+    </article>
 </Layout>
