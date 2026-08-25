@@ -13,20 +13,20 @@ export const SITE_DATA = {
 
     // Social media handles (username only, not full URL)
     // Set to empty string "" to hide an icon
-    twitter: "",
+    twitter: "_evanszhang",
     x: "",             // X logo → x.com
 
     // Bluesky handle (without the @)
     bluesky: "",
-    linkedin: "",
-    github: "zakokun",
+    linkedin: "hongwen-zhang",
+    github: "",
 
     // Google Scholar ID (found in your Scholar profile URL)
     // Example: https://scholar.google.com/citations?user=YOUR_ID_HERE
     scholar: "",
 
     // Your email address (use [at] and [dot] to avoid spam bots)
-    email: "",
+    email: "blog@wen.moe",
 
     // One-line research tagline used for SEO and social sharing meta tags
     description: "雑魚君のブログ。",
