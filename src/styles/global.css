@@ -625,10 +625,10 @@ a.list-item-title:active::after {
     display: block;
 }
 
-:global([data-theme="dark"]) .sun {
+[data-theme="dark"] .sun {
     display: block;
 }
 
-:global([data-theme="dark"]) .moon {
+[data-theme="dark"] .moon {
     display: none;
 }
