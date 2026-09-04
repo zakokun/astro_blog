@@ -6,7 +6,6 @@ import { SITE_DATA } from '../constants';
 
 import '../styles/about.css';
 
-const base = import.meta.env.BASE_URL;
 const topics = [
     {
         index: '01',
@@ -25,23 +24,6 @@ const topics = [
     },
 ];
 
-const selectedPosts = [
-    {
-        title: 'AI 会写代码以后，你更需要架构师思维',
-        description: '关于代码生成之后，真正上线一个服务还需要处理什么。',
-        href: `${base}blog/ai-architect-thinking/`,
-    },
-    {
-        title: '当语言失去描述现实的能力',
-        description: '讨论概念如何因为含义膨胀，逐渐失去准确描述现实的能力。',
-        href: `${base}blog/when-language-loses-the-ability-to-describe-reality/`,
-    },
-    {
-        title: '逻辑，和中国逻辑',
-        description: '从医疗、食品与教育出发，谈模糊而不可验证的标准。',
-        href: `${base}blog/logic-and-chinese-logic/`,
-    },
-];
 ---
 
 <Layout
@@ -106,28 +88,6 @@ const selectedPosts = [
                         <h3>{topic.title}</h3>
                         <p>{topic.description}</p>
                     </article>
-                ))}
-            </div>
-        </section>
-
-        <section class="about-section" aria-labelledby="start-here">
-            <div class="section-heading section-heading-row">
-                <div>
-                    <p class="section-label">从这里开始</p>
-                    <h2 id="start-here">几篇有代表性的文章</h2>
-                </div>
-                <a class="all-posts-link" href={`${base}blog/`}>查看全部文章 <span aria-hidden="true">↗</span></a>
-            </div>
-            <div class="selected-posts">
-                {selectedPosts.map((post, index) => (
-                    <a class="selected-post" href={post.href}>
-                        <span class="selected-post-number">0{index + 1}</span>
-                        <span class="selected-post-copy">
-                            <strong>{post.title}</strong>
-                            <span>{post.description}</span>
-                        </span>
-                        <span class="selected-post-arrow" aria-hidden="true">→</span>
-                    </a>
                 ))}
             </div>
         </section>

@@ -135,13 +135,6 @@
     margin-bottom: 2.5rem;
 }
 
-.section-heading-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    align-items: end;
-}
-
 .topic-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -182,68 +175,6 @@
     color: var(--color-text-muted);
     font-size: 0.92rem;
     line-height: 1.75;
-}
-
-.all-posts-link {
-    flex: 0 0 auto;
-    padding-bottom: 0.2rem;
-    border-bottom: 1px solid var(--color-accent);
-    color: var(--color-accent);
-    font-size: 0.9rem;
-}
-
-.selected-posts {
-    border-top: 1px solid var(--color-border);
-}
-
-.selected-post {
-    display: grid;
-    grid-template-columns: 3rem 1fr auto;
-    gap: 1.25rem;
-    align-items: center;
-    padding: 1.55rem 0;
-    border-bottom: 1px solid var(--color-border);
-    color: inherit;
-}
-
-.selected-post-number {
-    color: var(--color-text-muted);
-    font-family: 'Courier New', monospace;
-    font-size: 0.76rem;
-}
-
-.selected-post-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-
-.selected-post-copy strong {
-    color: var(--color-primary);
-    font-size: 1.08rem;
-    font-weight: 600;
-    transition: color var(--transition-fast);
-}
-
-.selected-post-copy > span {
-    color: var(--color-text-muted);
-    font-size: 0.88rem;
-}
-
-.selected-post-arrow {
-    color: var(--color-accent);
-    font-size: 1.35rem;
-    transition: transform var(--transition-fast);
-}
-
-@media (hover: hover) {
-    .selected-post:hover .selected-post-copy strong {
-        color: var(--color-accent);
-    }
-
-    .selected-post:hover .selected-post-arrow {
-        transform: translateX(5px);
-    }
 }
 
 .contact-panel {
@@ -347,24 +278,6 @@
         padding: 3.75rem 0;
     }
 
-    .section-heading-row {
-        display: block;
-    }
-
-    .all-posts-link {
-        display: inline-block;
-        margin-top: 1.25rem;
-    }
-
-    .selected-post {
-        grid-template-columns: 2rem 1fr auto;
-        gap: 0.7rem;
-    }
-
-    .selected-post-copy > span {
-        display: none;
-    }
-
     .contact-panel {
         margin-top: 3rem;
     }
@@ -375,8 +288,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .topic-card,
-    .selected-post-arrow {
+    .topic-card {
         transition: none;
     }
 }
