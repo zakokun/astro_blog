@@ -1,6 +1,6 @@
 ---
 title: '逻辑，和中国逻辑'
-pubDate: '2026-08-25'
+publishDate: '2026-08-25'
 description: '从大蒜素注射液、甲醛白菜和几组中美数据说起，谈概念如何在传播中变形，又如何让具体的困苦失去位置。'
 tags: ['Society', 'Health']
 ---

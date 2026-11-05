@@ -1,47 +1,61 @@
----
-import { Icon } from "astro-icon/components";
----
+<style>
+  #back-to-top {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 40;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    border: 1px solid hsl(var(--line) / 1);
+    background: hsl(var(--card) / 0.92);
+    color: hsl(var(--ink-soft) / 1);
+    box-shadow: 0 4px 16px hsl(var(--ink) / 0.14);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    visibility: hidden;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s,
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  #back-to-top.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+  }
+  #back-to-top:hover {
+    color: hsl(var(--accent) / 1);
+    background: hsl(var(--wash) / 1);
+  }
+</style>
 
-<button
-  id="back-to-top"
-  aria-label="Back to top"
-  data-tooltip="Back to top"
-  class="pointer-events-none fixed right-6 bottom-6 z-50 translate-y-4 cursor-pointer rounded-full border border-zinc-200 bg-white/80 p-3 text-zinc-700 opacity-0 shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 focus:outline-none active:scale-95 dark:border-zinc-700 dark:bg-zinc-800/80 dark:text-zinc-200"
->
-  <Icon name="lucide:arrow-up" class="h-5 w-5" />
+<button id="back-to-top" type="button" aria-label="Back to top" title="Back to top">
+  <span class="i-lucide-arrow-up size-5" aria-hidden="true"></span>
 </button>
 
 <script>
-  const VISIBLE_CLASSES = [
-    "opacity-100",
-    "pointer-events-auto",
-    "translate-y-0",
-  ];
-  const HIDDEN_CLASSES = ["opacity-0", "pointer-events-none", "translate-y-4"];
-  const updateVisibility = () => {
-    const btn = document.getElementById("back-to-top");
-    if (!btn) return;
-    const show = window.scrollY > 300;
-    btn.classList.remove(...(show ? HIDDEN_CLASSES : VISIBLE_CLASSES));
-    btn.classList.add(...(show ? VISIBLE_CLASSES : HIDDEN_CLASSES));
-  };
-
-  const handleClick = (event: MouseEvent) => {
-    if (!(event.target instanceof Element)) return;
-
-    const btn = event.target.closest("#back-to-top");
-    if (!btn) return;
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    btn.dispatchEvent(new MouseEvent("mouseout", { bubbles: true }));
-  };
-
-  window.addEventListener("scroll", updateVisibility, { passive: true });
-  document.addEventListener("click", handleClick);
-  document.addEventListener("astro:page-load", updateVisibility);
-  updateVisibility();
+  // Show a floating "back to top" button after scrolling down a page,
+  // smooth-scroll to the top on click.
+  const btn = document.getElementById('back-to-top')
+  const onScroll = () => {
+    if (!btn) return
+    const show = window.scrollY > 480
+    btn.classList.toggle('show', show)
+    btn.setAttribute('aria-hidden', String(!show))
+  }
+  onScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  btn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
 </script>

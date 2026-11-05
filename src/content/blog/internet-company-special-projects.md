@@ -1,9 +1,8 @@
 ---
 title: '互联网公司的「专项」'
-pubDate: '2026-09-04'
+publishDate: '2026-09-04'
 description: '从测试团队的自动化框架说起，谈互联网公司的专项如何取代本职工作，成为绩效和晋升中更重要的内容。'
 tags: ['Work', 'Society']
-featured: true
 ---
 
 我一直不太会做专项。

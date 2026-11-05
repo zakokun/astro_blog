@@ -1,44 +1,43 @@
-import { defineCollection } from "astro:content";
-import { glob } from "astro/loaders";
-import { z } from "astro/zod";
+import { glob } from 'astro/loaders'
+import { defineCollection } from 'astro:content'
+import { z } from 'astro/zod'
 
-const dateOnly = z
-  .union([
-    z.date(),
-    z
-      .string()
-      .regex(/^\d{4}-\d{2}-\d{2}$/, "Use a YYYY-MM-DD date without a time."),
-  ])
-  .transform((value) =>
-    typeof value === "string" ? new Date(`${value}T00:00:00Z`) : value,
-  )
-  .refine((date) => !Number.isNaN(date.getTime()), "Invalid date.")
-  .refine(
-    (date) =>
-      date.getUTCHours() === 0 &&
-      date.getUTCMinutes() === 0 &&
-      date.getUTCSeconds() === 0 &&
-      date.getUTCMilliseconds() === 0,
-    "pubDate must be a date only (YYYY-MM-DD), not a date-time.",
-  );
+function dedupeTags(tags: string[]) {
+  const seen = new Set<string>()
+  return tags
+    .map((t) => t.trim().toLowerCase())
+    .filter((t) => (t && !seen.has(t) ? (seen.add(t), true) : false))
+}
 
 const blog = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/blog" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: dateOnly,
-    featured: z.boolean().default(false),
-    tags: z.array(z.string().trim().min(1)).default([]),
-  }),
-});
+  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+  schema: ({ image }) =>
+    z.object({
+      /** Post title */
+      title: z.string().max(80),
+      /** Short summary shown in lists and meta description */
+      description: z.string().max(200),
+      publishDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      tags: z.array(z.string()).default([]).transform(dedupeTags),
+      /** Post language tag, e.g. '中文' / 'English'. Kept in data for
+       *  display in the meta row, RSS or filtering. Optional — posts
+       *  without it just have no language label. */
+      language: z.string().optional(),
+      /** Optional cover image — a local asset referenced relative to this file,
+       *  e.g. `src: ../../assets/cover.png`. Optimized by the Astro image
+       *  service (sharp) with responsive sizes. */
+      heroImage: z
+        .object({
+          src: image(),
+          alt: z.string().optional()
+        })
+        .optional(),
+      /** Hidden from lists but still accessible by URL */
+      draft: z.boolean().default(false),
+      /** Per-post comment toggle */
+      comment: z.boolean().default(true)
+    })
+})
 
-const page = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/page" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-  }),
-});
-
-export const collections = { blog, page };
+export const collections = { blog }

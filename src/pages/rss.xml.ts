@@ -1,21 +1,24 @@
-import rss from "@astrojs/rss";
-import type { APIContext } from "astro";
-import siteConfig from "@config";
-import { getBlogPosts, getPostHref } from "../utils/content";
+import rss from '@astrojs/rss'
+import type { APIContext } from 'astro'
+
+import { config } from '@/site-config'
+import { getBlogCollection, postUrl, sortMDByDate } from '@/utils/server'
 
 export async function GET(context: APIContext) {
-  const posts = await getBlogPosts();
+  const posts = sortMDByDate(await getBlogCollection())
 
   return rss({
-    title: siteConfig.title,
-    description: siteConfig.description,
-    site: context.site!,
+    title: config.site.title,
+    description: config.site.description,
+    site: context.site ?? 'https://example.com',
     items: posts.map((post) => ({
       title: post.data.title,
-      pubDate: post.data.pubDate,
       description: post.data.description,
-      link: getPostHref(post.id),
+      pubDate: post.data.publishDate,
+      link: postUrl(post.id),
+      categories: post.data.tags,
+      content: post.body // full post (markdown) so subscribers get the whole article
     })),
-    customData: `<language>${siteConfig.lang}</language>`,
-  });
+    customData: `<language>${config.site.lang}</language>`
+  })
 }

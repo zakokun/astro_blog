@@ -1,6 +1,6 @@
 ---
 title: 'AI 会写代码以后，你更需要架构师思维'
-pubDate: '2025-12-26'
+publishDate: '2025-12-26'
 description: '从一个面向用户的个人仓储服务出发，聊聊代码生成以后，一个服务真正上线前还要处理的部署、安全、权限和成本问题。'
 tags: ['AI', 'Programming', 'Architect', 'DB']
 ---
