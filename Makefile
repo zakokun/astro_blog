@@ -1,4 +1,4 @@
 .PHONY: dev
 
 dev:
-	npm run dev
+	pnpm dev

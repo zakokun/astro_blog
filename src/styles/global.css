@@ -1,634 +1,320 @@
-/* ==========================================================================
-   Base Styles & Imports
-   ========================================================================== */
+@import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@custom-variant dark (&:where(.dark, .dark *));
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+    color-scheme: light;
+    text-rendering: optimizeLegibility;
+  }
 
-html {
-    height: 100%;
-    font-family: 'Inter', sans-serif;
-}
-
-body {
-    width: 100%;
+  body {
+    @apply bg-stone-100 text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-200;
     min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    color: var(--color-text);
-    line-height: 1.6;
-    background-color: var(--color-bg);
-    overflow-x: hidden;
-    overflow-wrap: break-word;
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "PingFang SC",
+      "Hiragino Sans GB",
+      "Microsoft YaHei",
+      sans-serif;
+    background-image:
+      radial-gradient(
+        circle at 15% 0%,
+        rgb(219 234 254 / 0.55),
+        transparent 28rem
+      ),
+      radial-gradient(
+        circle at 88% 12%,
+        rgb(254 243 199 / 0.38),
+        transparent 24rem
+      );
+    background-attachment: fixed;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(
+        circle at 15% 0%,
+        rgb(30 58 138 / 0.18),
+        transparent 30rem
+      ),
+      radial-gradient(
+        circle at 88% 12%,
+        rgb(120 53 15 / 0.1),
+        transparent 26rem
+      );
+  }
+
+  ::selection {
+    background: rgb(191 219 254);
+    color: rgb(30 58 138);
+  }
+
+  img {
+    @apply bg-transparent;
+  }
+
+  :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-bold tracking-tight text-gray-900 dark:text-gray-100;
+  }
+
+  h1 {
+    @apply my-4 text-4xl;
+  }
+  h2 {
+    @apply my-3 text-3xl;
+  }
+  h3 {
+    @apply my-2 text-2xl;
+  }
+  h4 {
+    @apply my-1 text-xl;
+  }
+  h5 {
+    @apply text-lg;
+  }
+  h6 {
+    @apply text-base;
+  }
 }
 
-img,
-video,
-canvas,
-svg {
-    max-width: 100%;
-    height: auto;
-}
+@layer components {
+  .nav-scale-bg {
+    @apply relative isolate;
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: var(--color-text);
-}
-
-h2 {
-    font-size: 1.8rem;
-    margin: 3rem 0 1.5rem 0;
-    color: var(--color-primary);
-    border-bottom: 2px solid var(--color-border);
-    padding-bottom: 0.5rem;
-}
-
-@media (max-width: 636px) {
-    h1 {
-        font-size: 2rem;
-        text-align: center;
-    }
-}
-
-a {
-    color: var(--color-primary);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-}
-
-@media (hover: hover) {
-    a:hover {
-        color: var(--color-accent);
-    }
-}
-
-a:active {
-    color: var(--color-accent);
-}
-
-/* Links in text blocks should be recognizable */
-p a,
-.extra-links a {
-    color: var(--color-primary);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-    font-weight: 500;
-    transition: all var(--transition-fast);
-}
-
-@media (hover: hover) {
-    p a:hover,
-    .extra-links a:hover {
-        color: var(--color-accent);
-        text-decoration-thickness: 2px;
-    }
-}
-
-p a:active,
-.extra-links a:active {
-    color: var(--color-accent);
-    text-decoration-thickness: 2px;
-}
-
-/* ==========================================================================
-   Variables & Configuration
-   ========================================================================== */
-
-:root {
-    /* Colors - Day Mode */
-    --color-primary: #1a1a1a;
-    --color-accent-base: #0d9488;
-    --color-accent: var(--color-accent-base);
-    --color-text: #1a1a1a;
-    --color-text-muted: #666;
-    --color-bg: #fff;
-    --color-bg-alt: #f4f4f4;
-    --color-border: #eee;
-
-    /* Layout */
-    --max-width: 1200px;
-    --header-height: 60px;
-    --footer-height: 80px;
-
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-standard: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Dark Mode Colors */
-[data-theme="dark"] {
-    --color-primary: #f0f0f0;
-    --color-accent: color-mix(in oklch, var(--color-accent-base) 80%, white);
-    --color-text: #f0f0f0;
-    --color-text-muted: #aaa;
-    --color-bg: #181818;
-    --color-bg-alt: #1e1e1e;
-    --color-border: #333;
-}
-
-/* ==========================================================================
-   Layout Sections
-   ========================================================================== */
-
-header {
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    padding: 0.5rem 1rem;
-}
-
-nav {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-main {
-    flex: 1;
-    padding: 2rem;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    width: 100%;
-}
-
-@media (max-width: 636px) {
-    main {
-        padding: 1.5rem 1rem;
-    }
-}
-
-.footer-container {
-    height: var(--footer-height);
-    background-color: var(--color-bg-alt);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    border-top: 1px solid var(--color-border);
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    width: 100%;
-    max-width: var(--max-width);
-    padding: 0 2rem;
-}
-
-@media (max-width: 636px) {
-    .footer-content {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-}
-
-/* ==========================================================================
-   Mobile Menu Components
-   ========================================================================== */
-
-/* Menu toggle (hamburger) button */
-.menu-toggle {
-    background: none;
-    border: none;
-    color: var(--color-primary);
-    cursor: pointer;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity var(--transition-fast);
-}
-
-@media (hover: hover) {
-    .menu-toggle:hover {
-        opacity: 0.7;
-    }
-}
-
-.menu-toggle:active {
-    opacity: 0.7;
-}
-
-/* Theme toggle (day/night) button */
-.theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: var(--color-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform var(--transition-fast), color var(--transition-fast);
-}
-
-@media (hover: hover) {
-    .theme-toggle:hover {
-        transform: scale(1.1);
-        color: var(--color-accent);
-    }
-}
-
-.theme-toggle:active {
-    transform: scale(1.1);
-    color: var(--color-accent);
-}
-
-/* Close button inside navigation */
-.menu-close {
-    background: none;
-    border: none;
-    color: var(--color-primary);
-    cursor: pointer;
-    padding: 1rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    transition: transform var(--transition-fast);
-}
-
-@media (hover: hover) {
-    .menu-close:hover {
-        transform: rotate(90deg);
-    }
-}
-
-.menu-close:active {
-    transform: rotate(90deg);
-}
-
-/* Navigation overlay (drawer) */
-.navigation {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    /* Hidden off-screen by default */
-    width: 80%;
-    max-width: 300px;
-    height: 100%;
-    background-color: var(--color-bg);
-    z-index: 999;
-    transition: left var(--transition-standard);
-    display: flex;
-    flex-direction: column;
-    padding-top: 4rem;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* When menu is expanded */
-:has(.menu-toggle[aria-expanded="true"]) .navigation {
-    left: 0;
-}
-
-/* Overlay background with blur when menu is open */
-body:has(.menu-toggle[aria-expanded="true"])::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 998;
-}
-
-/* ==========================================================================
-   Navigation Links
-   ========================================================================== */
-
-.nav-links {
-    display: flex;
-    flex-direction: column;
-}
-
-.nav-links a {
-    color: var(--color-primary);
-    text-decoration: none;
-    padding: 1.25rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 200;
-    transition: all var(--transition-fast);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-@media (hover: hover) {
-    .nav-links a:hover {
-        background-color: rgba(0, 0, 0, 0.03);
-        padding-left: 2.5rem;
-        color: var(--color-accent);
-    }
-}
-
-.nav-links a:active {
-    background-color: rgba(0, 0, 0, 0.03);
-    padding-left: 2.5rem;
-    color: var(--color-accent);
-}
-
-/* ==========================================================================
-   Desktop Responsive Styles
-   ========================================================================== */
-
-@media screen and (min-width: 636px) {
-
-    .menu-toggle,
-    .menu-close {
-        display: none;
+    &::before {
+      @apply absolute inset-0 -z-10 rounded-[inherit] duration-200 ease-in-out content-[''];
+      transition-property: transform, scale, background-color;
     }
 
-    body:has(.menu-toggle[aria-expanded="true"])::before {
-        display: none;
+    &:not(.nav-active):hover::before {
+      @apply scale-105;
     }
 
-    .navigation {
-        position: static;
-        left: 0;
-        width: auto;
-        max-width: none;
-        height: auto;
-        background: none;
-        box-shadow: none;
-        padding-top: 0;
-        display: block;
-        z-index: auto;
+    &:not(.nav-active):active::before {
+      @apply scale-98;
+    }
+  }
+
+  .markdown-content {
+    @apply max-w-none text-[1.0625rem] text-gray-700 dark:text-gray-300;
+
+    & p {
+      @apply mb-5 leading-[1.9];
     }
 
-    .nav-links {
-        flex-direction: row;
-        background: none;
+    & ul {
+      @apply mb-4 list-disc pl-6;
     }
 
-    .nav-links a {
-        color: var(--color-primary);
-        padding: 0.5rem 1rem;
-        border-bottom: none;
-        font-size: 1rem;
+    & ol {
+      @apply mb-4 list-decimal pl-6;
     }
 
-    @media (hover: hover) {
-        .nav-links a:hover {
-            background: none;
-            padding-left: 1rem;
-            color: var(--color-accent);
+    & li {
+      @apply mb-1;
+    }
+
+    & .career-timeline {
+      @apply relative my-8 list-none space-y-7 pl-7;
+
+      &::before {
+        @apply absolute top-2 bottom-2 left-1.5 w-px bg-blue-200 content-[''] dark:bg-blue-900;
+      }
+
+      & li {
+        @apply relative m-0;
+
+        &::before {
+          @apply absolute top-1.5 -left-7 h-3 w-3 rounded-full border-2 border-blue-500 bg-white content-[''] dark:border-blue-400 dark:bg-gray-900;
         }
+      }
+
+      & .career-period {
+        @apply mb-1 text-xs font-semibold tracking-[0.14em] text-blue-600 uppercase dark:text-blue-400;
+      }
+
+      & h3 {
+        @apply mt-0 mb-2;
+      }
+
+      & li > p:last-child {
+        @apply mb-0;
+      }
     }
 
-    .nav-links a:active {
-        background: none;
-        padding-left: 1rem;
-        color: var(--color-accent);
-    }
-}
-
-/* ==========================================================================
-   Social Icons (used across multiple pages)
-   ========================================================================== */
-
-.social-icons {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.social-icons a {
-    color: inherit;
-    transition: color var(--transition-fast), transform var(--transition-fast);
-    display: flex;
-    align-items: center;
-}
-
-@media (hover: hover) {
-    .social-icons a:hover {
-        color: var(--color-accent);
-        transform: translateY(-2px);
-    }
-}
-
-.social-icons a:active {
-    color: var(--color-accent);
-    transform: translateY(-2px);
-}
-
-/* ==========================================================================
-   Shared Page Components
-   ========================================================================== */
-
-.page-container {
-    max-width: 900px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* Centered column layout utility */
-.centered-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.intro-text {
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-    margin-bottom: 2rem;
-}
-
-.custom-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.custom-list li {
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-.custom-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.6rem;
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-accent);
-    border-radius: 50%;
-}
-
-.list-item-title {
-    display: inline;
-    font-size: 1.2rem;
-    font-weight: 600;
-    line-height: 1.4;
-    color: var(--color-primary);
-    margin-bottom: 0.4rem;
-    text-decoration: none;
-    transition: color var(--transition-fast);
-}
-
-@media (hover: hover) {
-    a.list-item-title:hover {
-        color: var(--color-accent);
-        text-decoration: underline;
-    }
-}
-
-a.list-item-title:active {
-    color: var(--color-accent);
-    text-decoration: underline;
-}
-
-a.list-item-title::after {
-    content: " ↗";
-    font-size: 0.9rem;
-    opacity: 0.5;
-    vertical-align: middle;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-    display: inline-block;
-}
-
-@media (hover: hover) {
-    a.list-item-title:hover::after {
-        opacity: 1;
-        transform: translate(2px, -2px);
-    }
-}
-
-a.list-item-title:active::after {
-    opacity: 1;
-    transform: translate(2px, -2px);
-}
-
-.list-item-description {
-    display: block;
-    font-size: 0.95rem;
-    color: var(--color-text-muted);
-}
-
-.extra-links {
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-}
-
-/* ==========================================================================
-   Info Cards (Scholar, CV, etc.)
-   ========================================================================== */
-
-.info-card {
-    background-color: var(--color-bg-alt);
-    padding: 2.5rem;
-    border-radius: 12px;
-    text-align: center;
-    border: 1px solid var(--color-border);
-}
-
-.info-card p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    color: var(--color-text);
-}
-
-.info-card-link {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 2rem;
-    border-radius: 8px;
-    transition: transform var(--transition-fast), background-color var(--transition-fast);
-    color: var(--color-primary);
-}
-
-.info-card-link span {
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-@media (hover: hover) {
-    .info-card-link:hover {
-        transform: translateY(-3px);
-        background-color: rgba(0, 0, 0, 0.03);
-        color: var(--color-accent);
+    & hr {
+      @apply my-4 border-gray-300 dark:border-gray-700;
     }
 
-    [data-theme="dark"] .info-card-link:hover {
-        background-color: rgba(255, 255, 255, 0.05);
+    & h1 {
+      @apply my-3 text-3xl font-extrabold text-gray-900 dark:text-gray-100;
     }
-}
 
-.info-card-link:active {
-    transform: translateY(-3px);
-    background-color: rgba(0, 0, 0, 0.03);
-    color: var(--color-accent);
-}
-
-[data-theme="dark"] .info-card-link:active {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-@media (max-width: 636px) {
-    .info-card {
-        padding: 1.5rem;
+    & h2 {
+      @apply mt-10 mb-4 scroll-mt-28 text-2xl font-bold text-gray-900 dark:text-gray-100;
     }
+
+    & h3 {
+      @apply mt-8 mb-3 scroll-mt-28 text-xl font-semibold text-gray-900 dark:text-gray-100;
+    }
+
+    & h4 {
+      @apply text-lg font-semibold text-gray-900 dark:text-gray-100;
+    }
+
+    & h5 {
+      @apply text-base font-semibold text-gray-900 dark:text-gray-100;
+    }
+
+    & h6 {
+      @apply text-sm font-semibold text-gray-900 dark:text-gray-100;
+    }
+
+    & code {
+      @apply rounded bg-gray-100 px-1.5 py-0.5 text-sm text-blue-600 dark:bg-gray-800 dark:text-blue-400;
+    }
+
+    & pre {
+      @apply my-5 overflow-x-auto rounded-md bg-slate-900 p-4 text-white dark:bg-gray-900;
+
+      & code {
+        @apply bg-transparent p-0 text-inherit;
+      }
+    }
+
+    & blockquote {
+      @apply my-4 rounded-md border-l-4 border-blue-600 bg-blue-50/50 p-4 pb-0.5 shadow-sm dark:border-blue-500 dark:bg-blue-950/30;
+    }
+
+    & .markdown-alert {
+      @apply my-4 rounded-md border-l-4 bg-blue-50/50 p-4 shadow-sm dark:bg-blue-950/30;
+    }
+
+    & .markdown-alert-title {
+      @apply mb-3 flex items-center gap-2 text-sm leading-none font-semibold;
+
+      & svg {
+        @apply h-4 w-4 shrink-0 fill-current;
+      }
+    }
+
+    & .markdown-alert > p:last-of-type {
+      @apply mb-0;
+    }
+
+    & .markdown-alert-note {
+      @apply border-blue-600 dark:border-blue-500;
+
+      & .markdown-alert-title {
+        @apply text-blue-700 dark:text-blue-400;
+      }
+    }
+
+    & .markdown-alert-tip {
+      @apply border-green-600 bg-green-50/50 dark:border-green-500 dark:bg-green-950/30;
+
+      & .markdown-alert-title {
+        @apply text-green-700 dark:text-green-400;
+      }
+    }
+
+    & .markdown-alert-important {
+      @apply border-purple-600 bg-purple-50/50 dark:border-purple-500 dark:bg-purple-950/30;
+
+      & .markdown-alert-title {
+        @apply text-purple-700 dark:text-purple-400;
+      }
+    }
+
+    & .markdown-alert-warning {
+      @apply border-amber-600 bg-amber-50/50 dark:border-amber-500 dark:bg-amber-950/30;
+
+      & .markdown-alert-title {
+        @apply text-amber-700 dark:text-amber-400;
+      }
+    }
+
+    & .markdown-alert-caution {
+      @apply border-red-600 bg-red-50/50 dark:border-red-500 dark:bg-red-950/30;
+
+      & .markdown-alert-title {
+        @apply text-red-700 dark:text-red-400;
+      }
+    }
+
+    & a {
+      @apply text-blue-600 underline decoration-blue-200 underline-offset-4 hover:decoration-blue-600 dark:text-blue-400 dark:decoration-blue-900 dark:hover:decoration-blue-400;
+    }
+
+    & img {
+      @apply my-4 rounded-md;
+    }
+
+    & table {
+      @apply my-6 w-full border-separate border-spacing-0 overflow-hidden rounded-lg border border-gray-300 text-left text-sm dark:border-gray-800;
+    }
+
+    & th,
+    & td {
+      @apply border-r border-b border-gray-300 px-4 py-2.5 dark:border-gray-800;
+
+      &:last-child {
+        @apply border-r-0;
+      }
+    }
+
+    & th {
+      @apply bg-gray-100 font-semibold text-gray-900 dark:bg-gray-800 dark:text-gray-100;
+    }
+
+    & tr:last-child td {
+      @apply border-b-0;
+    }
+
+    & tr:nth-child(even) {
+      @apply bg-gray-50/50 dark:bg-gray-900/40;
+    }
+
+    & abbr {
+      @apply cursor-help font-semibold;
+    }
+
+    & kbd {
+      @apply mx-1 rounded border border-gray-300 px-1.5 py-0.5 text-xs dark:border-gray-700 dark:bg-neutral-800;
+    }
+
+    & [data-footnote-backref] {
+      @apply hover:no-underline;
+    }
+  }
 }
 
-/* ==========================================================================
-   Footer Components
-   ========================================================================== */
+#nprogress {
+  @apply pointer-events-none;
 
-.footer-socials {
-    color: var(--color-text-muted);
+  & .bar {
+    @apply fixed top-0 left-0 z-1000 h-0.5 w-full bg-blue-500 dark:bg-blue-400;
+  }
 }
 
-/* ==========================================================================
-   Theme Toggle
-   ========================================================================== */
-
-.sun {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  #nprogress .bar {
+    transition: none !important;
+  }
 }
 
-.moon {
-    display: block;
-}
-
-[data-theme="dark"] .sun {
-    display: block;
-}
-
-[data-theme="dark"] .moon {
-    display: none;
+::view-transition-old(root),
+::view-transition-new(root) {
+  @apply animate-none mix-blend-normal;
 }

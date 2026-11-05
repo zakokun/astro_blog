@@ -1,34 +1,40 @@
 {
-  "name": "zakokoun-blog",
+  "name": "zakokun-blog",
   "type": "module",
   "version": "1.0.0",
-  "description": "雑魚君のブログ built with Astro",
-  "keywords": [
-    "astro",
-    "template",
-    "academic",
-    "researcher",
-    "portfolio",
-    "publications",
-    "scholar",
-    "scientist",
-    "cv",
-    "resume"
-  ],
-  "license": "MIT",
-  "author": "Zakokoun",
+  "description": "雑魚君的个人博客",
   "engines": {
     "node": ">=22.12.0"
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist --force-language zh-cn",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write \"**/*.{astro,html,js,jsx,ts,tsx,json,css,md,mdx}\""
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.2.4",
-    "astro": "^7.2.6",
-    "wrangler": "^4.125.0"
+    "@astrojs/markdown-satteri": "^0.4.2",
+    "@astrojs/mdx": "^8.0.2",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@iconify-json/lucide": "^1.2.131",
+    "@pagefind/component-ui": "^1.5.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.5",
+    "astro-icon": "^1.2.0",
+    "nprogress": "^0.2.0",
+    "pagefind": "^1.5.2",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.3",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.1"
   }
 }

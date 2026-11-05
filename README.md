@@ -1,90 +1,72 @@
-# 雑魚君のブログ
+# 雑魚君的博客
 
-Personal blog built with [Astro](https://astro.build), based on the
-[Astro Scholar](https://github.com/whydevils/astro-scholar) theme.
+使用 [Astro](https://astro.build) 构建的个人博客，界面基于
+[Mare Blog](https://github.com/Niceeepoiu/mare-blog) 主题定制。
 
-Production domain: <https://blog.zakokun.com>
+线上域名：<https://blog.zakokun.com>
 
-## Local Development
+## 本地开发
+
+需要 Node.js 22.12 或更高版本，以及 pnpm。
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
-Astro will print a local preview URL, usually <http://localhost:4321>.
+生产构建和本地预览：
 
-## Writing Posts
+```bash
+pnpm build
+pnpm preview
+```
 
-Each blog post lives in its own folder under `src/pages/blog/`.
+构建命令会同时生成 Pagefind 中文全文搜索索引。
+
+## 新增文章
+
+每篇文章是 `src/content/blog/` 中的一个 Markdown 或 MDX 文件。文件名就是文章路由：
 
 ```text
-src/pages/blog/
-├── index.astro
-└── my-post-slug/
-    ├── index.md
-    ├── cover.png
-    └── other-file.pdf
+src/content/blog/my-post-slug.md
 ```
 
-Use this frontmatter in each `index.md`:
-
-```markdown
----
-layout: '../../../layouts/BlogPost.astro'
-title: 'Post title'
-date: '2026-05-13'
-description: 'One sentence shown on the blog index.'
-tags: ['notes']
----
-```
-
-Assets in the same post folder can be referenced from Markdown with relative paths:
-
-```markdown
-![Cover](./cover.png)
-```
-
-The route is based on the folder name. For example:
-
-```text
-src/pages/blog/my-post-slug/index.md
-```
-
-becomes:
+对应：
 
 ```text
 https://blog.zakokun.com/blog/my-post-slug/
 ```
 
-## Site Settings
+文章 frontmatter：
 
-Edit `src/constants.ts` for the site name, tagline, social links, SEO description,
-and deployed URL.
+```markdown
+---
+title: "文章标题"
+description: "显示在文章列表和搜索结果中的一句话简介。"
+pubDate: "2026-11-04"
+featured: false
+tags: ["随笔"]
+---
+```
 
-Edit `astro.config.mjs` if the production domain changes.
+`featured: true` 的文章会显示在首页。
+
+## 站点设置
+
+- `site.config.ts`：站点名称、作者信息、社交链接、域名、导航和评论设置。
+- `src/content/page/about.mdx`：关于页正文。
+- `public/avatar.jpeg`：作者头像。
+- `src/styles/global.css`：全局配色、排版和文章样式。
 
 ## Cloudflare Pages
 
-Recommended settings:
+- Framework preset：`Astro`
+- Build command：`pnpm build`
+- Build output directory：`dist`
+- Node.js：`22.12` 或更高版本
 
-- Framework preset: `Astro`
-- Build command: `npm run build`
-- Build output directory: `dist`
-- Node.js version: `22` or newer
+## 主题许可
 
-After pushing to GitHub, connect the repository in Cloudflare Pages and add the
-custom domain `blog.zakokun.com`.
-
-## Useful Commands
-
-```bash
-npm run dev      # local dev server
-npm run build    # production build
-npm run preview  # preview the built site
-```
-
-## Theme Credit
-
-Original theme: [whydevils/astro-scholar](https://github.com/whydevils/astro-scholar)
-under the MIT license.
+当前界面基于 [Niceeepoiu/mare-blog](https://github.com/Niceeepoiu/mare-blog)，
+早期版本基于 [whydevils/astro-scholar](https://github.com/whydevils/astro-scholar)。
+两者均使用 MIT License；署名保留在 `LICENSE` 中。
